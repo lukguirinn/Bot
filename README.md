@@ -1,4 +1,3 @@
-
 # Calendi
 
 Bot de WhatsApp para la gestión de calendarios, eventos y recordatorios.

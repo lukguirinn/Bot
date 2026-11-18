@@ -134,7 +134,7 @@ Se recomienda utilizar WhatsApp Cloud API directamente con Meta.
 
 Esta alternativa permite construir Calendi sobre una integración oficial, con control sobre el código y la arquitectura.
 
-La integración se realizará utilizando Python y FastAPI.
+La integración se realizará utilizando Python y Flask.
 
 ## 11. Estado
 

@@ -26,12 +26,12 @@ Al finalizar la etapa, Calendi deberá poder:
 | Plataforma de mensajería | WhatsApp Cloud API |
 | Proveedor | Meta |
 | Lenguaje | Python |
-| Framework | FastAPI |
-| Base de datos inicial | SQLite |
-| Hosting previsto | Render |
+| Framework | Flask |
+| Base de datos inicial | SQLite (prevista) |
+| Hosting previsto | Render (previsto) |
 | Entorno de desarrollo | Local |
+| Túnel de desarrollo | Ngrok |
 | Control de versiones | Git y GitHub |
-
 ## 4. Arquitectura
 
 El funcionamiento será el siguiente:
@@ -44,7 +44,7 @@ WhatsApp Cloud API
   ↓
 Webhook de Calendi
   ↓
-Servidor FastAPI
+Servidor Flask
   ↓
 Lógica del bot
   ↓
@@ -88,7 +88,7 @@ Resultado: cuenta y número preparados para las pruebas.
 Objetivo: crear el endpoint que recibirá las notificaciones de WhatsApp.
 
 Actividades:
-- Crear el proyecto de FastAPI.
+- Implementar el servidor web utilizando Flask.
 - Implementar el endpoint de verificación.
 - Implementar el endpoint de recepción.
 - Configurar la URL del webhook en Meta.

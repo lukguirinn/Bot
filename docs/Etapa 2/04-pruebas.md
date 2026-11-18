@@ -112,6 +112,14 @@ La Etapa 2 se considera finalizada cuando:
 
 ## 8. Estado
 
-Pruebas planificadas.
+Pruebas realizadas parcialmente.
 
-Las pruebas reales se completarán a medida que se implemente el código.
+- Verificación del webhook con Meta: completada.
+- Recepción de evento de prueba enviado desde el panel de Meta: completada.
+- Respuesta HTTP 200 del servidor Flask: comprobada.
+- Recepción de mensajes reales desde WhatsApp: pendiente de validación.
+- Procesamiento de mensajes: pendiente.
+- Envío automático de respuestas desde el webhook: pendiente.
+- Flujo completo: pendiente.
+
+Las pruebas de recepción de mensajes reales y el flujo completo quedan pendientes de continuar durante el desarrollo de Calendi.

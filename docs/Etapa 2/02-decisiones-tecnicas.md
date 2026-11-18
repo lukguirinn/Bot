@@ -38,16 +38,23 @@ Motivo:
 - Permite implementar la lógica del bot.
 - Cuenta con herramientas para desarrollar APIs y automatizaciones.
 
-## 5. FastAPI
+## 5. Flask
 
-Se utilizará FastAPI para crear el servidor.
+Se utilizará Flask para crear el servidor web de Calendi.
 
 Responsabilidades:
-- Crear endpoints.
+- Crear endpoints HTTP.
 - Recibir solicitudes HTTP.
-- Implementar el webhook.
-- Validar las solicitudes.
+- Implementar el webhook de WhatsApp.
+- Gestionar la verificación del webhook.
+- Recibir notificaciones de WhatsApp.
 - Conectar el webhook con la lógica del bot.
+
+Motivo:
+- Es un framework ligero.
+- Permite implementar un servidor web sencillo.
+- Es adecuado para el desarrollo del MVP.
+- Facilita la implementación y prueba de webhooks.
 
 ## 6. SQLite
 

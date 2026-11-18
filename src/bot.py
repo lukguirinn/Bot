@@ -1,3 +1,8 @@
+"""
+Contiene la lógica principal de procesamiento de mensajes de Calendi.
+"""
+
+
 def procesar_mensaje(mensaje, remitente):
     """
     Procesa el mensaje recibido por WhatsApp.
@@ -7,7 +12,7 @@ def procesar_mensaje(mensaje, remitente):
         remitente (str): Número de WhatsApp del usuario.
 
     Retorno:
-        str: Resultado del procesamiento.
+        str: Identificador de la respuesta correspondiente.
     """
 
     mensaje = mensaje.lower().strip()

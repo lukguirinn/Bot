@@ -1,148 +1,182 @@
+
 # Decisiones técnicas
 
 ## Proyecto: Calendi
 
 ## 1. Objetivo
 
-Registrar las decisiones tecnológicas que se utilizarán durante la Etapa 2 para evitar cambios innecesarios y mantener una arquitectura consistente.
+Documentar las decisiones tecnológicas adoptadas para desarrollar Calendi y mantener una arquitectura organizada y consistente.
 
-## 2. Decisiones
+## 2. Tecnologías seleccionadas
 
-| Componente | Decisión |
-|---|---|
-| Plataforma | WhatsApp Business Platform |
-| API | WhatsApp Cloud API |
-| Lenguaje | Python |
-| Framework | FastAPI |
-| Base de datos inicial | SQLite |
-| Hosting previsto | Render |
-| Entorno de desarrollo | Local |
-| Control de versiones | Git y GitHub |
+| Componente | Tecnología | Estado |
+|---|---|---|
+| Plataforma de mensajería | WhatsApp Business Platform | Seleccionada |
+| API | WhatsApp Cloud API | Seleccionada |
+| Lenguaje | Python | Seleccionado |
+| Framework web | Flask | Seleccionado |
+| Base de datos | SQLite | Prevista |
+| Hosting | Render | Previsto |
+| Túnel de desarrollo | Ngrok | Utilizado |
+| Control de versiones | Git y GitHub | Utilizados |
+| Integración de calendario | Google Calendar API | Próxima etapa |
 
 ## 3. WhatsApp Cloud API
 
 Se utilizará la API oficial de Meta para conectar Calendi con WhatsApp.
 
-Motivo:
+Motivos:
 - Es una integración oficial.
 - Permite enviar y recibir mensajes.
 - Permite desarrollar una solución propia.
 - Evita depender de bibliotecas no oficiales.
 
+El envío de respuestas se realizará mediante plantillas oficiales de WhatsApp cuando corresponda.
+
 ## 4. Python
 
-Se utilizará Python como lenguaje principal.
+Se utilizará Python como lenguaje principal del proyecto.
 
-Motivo:
-- Es el lenguaje que el desarrollador está estudiando.
-- Permite implementar la lógica del bot.
-- Cuenta con herramientas para desarrollar APIs y automatizaciones.
+Motivos:
+- Es el lenguaje utilizado para desarrollar la lógica del bot.
+- Permite integrar APIs externas.
+- Cuenta con herramientas para automatización y procesamiento de mensajes.
 
 ## 5. Flask
 
-Se utilizará Flask para crear el servidor web de Calendi.
+Se utilizará Flask para desarrollar el servidor web de Calendi.
 
 Responsabilidades:
 - Crear endpoints HTTP.
-- Recibir solicitudes HTTP.
-- Implementar el webhook de WhatsApp.
-- Gestionar la verificación del webhook.
+- Recibir solicitudes de Meta.
+- Implementar la verificación del webhook.
 - Recibir notificaciones de WhatsApp.
 - Conectar el webhook con la lógica del bot.
 
-Motivo:
+Motivos:
 - Es un framework ligero.
 - Permite implementar un servidor web sencillo.
-- Es adecuado para el desarrollo del MVP.
-- Facilita la implementación y prueba de webhooks.
+- Es adecuado para el desarrollo inicial del proyecto.
 
-## 6. SQLite
+## 6. Organización del código
 
-Se utilizará SQLite como base de datos inicial.
-
-Motivo:
-- Es sencilla de configurar.
-- No requiere un servidor independiente.
-- Es adecuada para el prototipo inicial.
-
-La elección deberá revisarse cuando Calendi necesite una base de datos compartida para múltiples instancias o una mayor capacidad de operación.
-
-## 7. Render
-
-Se considera Render como hosting previsto para desplegar el servidor.
-
-Durante el desarrollo se utilizará el entorno local.
-
-Antes de desplegar se verificarán:
-- Compatibilidad con FastAPI.
-- Disponibilidad de HTTPS.
-- Configuración de variables de entorno.
-- Persistencia de datos.
-- Plan y costos vigentes.
-
-## 8. Estructura inicial del proyecto
+Se utilizará una estructura modular para separar las responsabilidades.
 
 ```text
-Programacion-1/
-│
-├── docs/
-│   └── etapa-2/
-│
-├── src/
-│   ├── main.py
-│   ├── config.py
-│   ├── webhook.py
-│   ├── whatsapp.py
-│   └── bot.py
-│
-├── .env.example
-├── .gitignore
-├── requirements.txt
-└── README.md
+src/
+├── __init__.py
+├── main.py
+├── webhook.py
+├── whatsapp.py
+└── bot.py
 ```
 
-## 9. Responsabilidades de los archivos
+### Responsabilidades
 
-### main.py
+**main.py**
+- Punto de entrada de la aplicación.
+- Inicia el servidor Flask.
 
-Iniciar la aplicación FastAPI.
+**webhook.py**
+- Gestiona la verificación del webhook.
+- Recibe los eventos de WhatsApp.
+- Deriva los mensajes a la lógica del bot.
 
-### config.py
+**whatsapp.py**
+- Contiene las funciones de comunicación con WhatsApp Cloud API.
+- Permite enviar plantillas oficiales.
 
-Leer y administrar la configuración del proyecto.
+**bot.py**
+- Procesa los mensajes recibidos.
+- Contiene la lógica inicial de interpretación.
 
-### webhook.py
+**__init__.py**
+- Identifica el directorio src como paquete de Python.
 
-Gestionar la verificación del webhook y la recepción de eventos.
+## 7. Configuración y credenciales
 
-### whatsapp.py
+Las credenciales se administrarán mediante variables de entorno.
 
-Contener las funciones para comunicarse con WhatsApp Cloud API.
+Se utilizará un archivo `.env` ubicado en la raíz del proyecto.
 
-### bot.py
+Variables utilizadas:
 
-Procesar los mensajes y generar las respuestas.
+```env
+WHATSAPP_TOKEN=
+WHATSAPP_PHONE_NUMBER_ID=
+WEBHOOK_VERIFY_TOKEN=
+```
 
-## 10. Seguridad
+Reglas de seguridad:
+- No guardar credenciales directamente en el código.
+- No publicar `.env` en GitHub.
+- Mantener `.env` incluido en `.gitignore`.
+- No compartir tokens públicamente.
 
-Las credenciales no deben almacenarse directamente en el código.
+El archivo `.env.example` podrá utilizarse como plantilla sin credenciales reales.
 
-Se utilizarán variables de entorno.
+## 8. Entorno de desarrollo
 
-El archivo `.env` deberá estar incluido en `.gitignore`.
+Se utilizará un entorno virtual de Python para administrar las dependencias.
 
-Se podrá mantener un `.env.example` con los nombres de las variables, sin credenciales reales.
+Estructura local:
 
-## 11. Decisiones pendientes de revisión
+```text
+Bot/
+├── .venv/
+├── .env
+├── .gitignore
+├── requirements.txt
+├── verificar.py
+├── src/
+└── docs/
+```
 
-- Confirmar el hosting elegido.
-- Confirmar la persistencia de SQLite en el hosting.
-- Evaluar PostgreSQL cuando sea necesario.
-- Evaluar costos antes del lanzamiento.
-- Definir políticas de conservación de datos.
+- `.venv/`: entorno virtual local.
+- `.env`: configuración privada.
+- `requirements.txt`: dependencias del proyecto.
+- `verificar.py`: herramienta de diagnóstico.
 
-## 12. Estado
+Los directorios y archivos privados no deben publicarse en GitHub.
 
-Decisiones iniciales documentadas.
+## 9. Ngrok
 
-Las decisiones podrán revisarse si las necesidades del proyecto cambian.
+Se utilizará Ngrok durante el desarrollo local para exponer temporalmente el servidor Flask a Internet.
+
+Esto permitirá que Meta pueda comunicarse con el webhook durante las pruebas.
+
+En producción se utilizará un servicio de hosting con HTTPS.
+
+## 10. Base de datos
+
+Se considera SQLite como alternativa inicial para almacenar información del proyecto.
+
+Su implementación queda pendiente para una etapa posterior, cuando se definan las necesidades de almacenamiento de usuarios, eventos y recordatorios.
+
+## 11. Hosting
+
+Se considera Render como alternativa para desplegar Calendi.
+
+Antes de realizar el despliegue se deberán evaluar:
+- Configuración del servidor.
+- Variables de entorno.
+- Disponibilidad de HTTPS.
+- Persistencia de datos.
+- Costos del servicio.
+
+## 12. Decisiones futuras
+
+Quedan pendientes de definición:
+- Implementación de SQLite.
+- Integración con Google Calendar API.
+- Diseño del sistema de usuarios.
+- Administración de eventos y recordatorios.
+- Despliegue definitivo.
+
+## 13. Estado
+
+Las decisiones principales de desarrollo están documentadas.
+
+La arquitectura inicial utiliza Python, Flask y WhatsApp Cloud API.
+
+Las tecnologías previstas para etapas posteriores todavía no se consideran implementadas.

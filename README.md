@@ -1,54 +1,76 @@
+
 # Calendi
 
-Bot de WhatsApp para la gestión de calendarios, eventos y recordatorios.
+Asistente de calendario mediante WhatsApp.
+
+Calendi es un proyecto de software que busca facilitar la gestión de eventos, agendas y recordatorios utilizando WhatsApp como interfaz principal.
 
 ## Objetivo
 
-Desarrollar un asistente virtual que permita a los usuarios administrar su agenda mediante mensajes de WhatsApp, simplificando la creación, consulta, modificación y eliminación de eventos.
+Permitir que los usuarios administren sus actividades mediante mensajes, sin necesidad de utilizar una aplicación de calendario adicional.
 
-## Funcionalidades principales
+## Funcionalidades previstas
 
-- Crear eventos mediante mensajes de WhatsApp.
-- Consultar eventos programados.
-- Modificar eventos existentes.
+- Crear eventos.
+- Consultar eventos.
+- Modificar eventos.
 - Eliminar eventos.
-- Configurar recordatorios automáticos.
-- Integrar los eventos con Google Calendar.
+- Configurar recordatorios.
+- Integrar Google Calendar.
+- Interpretar solicitudes escritas en lenguaje natural.
 
-## Tecnologías propuestas
+## Tecnologías
 
-- Python: lenguaje de programación.
-- Flask: framework para gestionar solicitudes.
-- WhatsApp Cloud API: conexión con WhatsApp.
-- Google Calendar API: gestión de calendarios.
-- SQLite: almacenamiento inicial de información.
-- Git y GitHub: control de versiones.
-- Render: alternativa para desplegar el servicio.
+| Tecnología | Función |
+|---|---|
+| Python | Lenguaje principal |
+| Flask | Servidor web |
+| WhatsApp Cloud API | Comunicación con WhatsApp |
+| Google Calendar API | Integración de calendarios |
+| SQLite | Base de datos prevista |
+| Ngrok | Túnel para pruebas locales |
+| Git y GitHub | Control de versiones |
+| Render | Hosting previsto |
 
 ## Estructura del proyecto
 
 ```text
-calendi/
-├── app/
-├── docs/
-├── tests/
-├── .env.example
+Bot/
+├── .env                 # Configuración privada local
+├── .venv/               # Entorno virtual local
 ├── .gitignore
+├── README.md
 ├── requirements.txt
-├── main.py
-└── README.md
+├── verificar.py
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── webhook.py
+│   ├── whatsapp.py
+│   └── bot.py
+└── docs/
+    ├── Etapa 1/
+    └── Etapa 2/
 ```
+
+Los archivos `.env` y `.venv/` son locales y no deben publicarse en GitHub.
 
 ## Documentación
 
-- [Alcance y funcionalidades](docs/alcance.md)
-- [Arquitectura](docs/arquitectura.md)
-- [Entorno de desarrollo](docs/entorno.md)
-- [Estructura del proyecto](docs/estructura.md)
+### Etapa 1 — Planificación y configuración
 
-## Estado del proyecto
+- [Alcance del proyecto](docs/Etapa%201/alcance.md)
+- [Arquitectura](docs/Etapa%201/arquitectura.md)
+- [Entorno de desarrollo](docs/Etapa%201/entorno.md)
+- [Estructura del proyecto](docs/Etapa%201/estructura.md)
 
-Actualmente, Calendi se encuentra en la etapa de planificación y configuración.
+### Etapa 2 — Desarrollo del bot de WhatsApp
+
+- [Documentación general](docs/Etapa%202/README.md)
+- [Investigación de WhatsApp](docs/Etapa%202/01-investigacion-Wpp.md)
+- [Decisiones técnicas](docs/Etapa%202/02-decisiones-tecnicas.md)
+- [Configuración de Meta](docs/Etapa%202/03-configuracion-meta.md)
+- [Pruebas](docs/Etapa%202/04-pruebas.md)
 
 ## Roadmap
 
@@ -59,6 +81,15 @@ Actualmente, Calendi se encuentra en la etapa de planificación y configuración
 5. Interpretación de mensajes.
 6. Pruebas y puesta en marcha.
 
-## Autor
+## Estado actual
 
-Proyecto personal de desarrollo de software.
+Calendi cuenta con una estructura modular en Python, un servidor Flask, una integración inicial con WhatsApp Cloud API y pruebas parciales de comunicación.
+
+La recepción de mensajes reales y la automatización completa de respuestas continúan pendientes de validación.
+
+## Seguridad
+
+- Las credenciales se guardan en `.env`.
+- El archivo `.env` no debe subirse a GitHub.
+- No se deben publicar tokens ni identificadores privados.
+- Las dependencias se administran mediante `requirements.txt`.

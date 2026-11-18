@@ -1,113 +1,117 @@
 
+
 # Arquitectura del sistema
 
 ## 1. Descripción general
 
 Calendi utilizará una arquitectura modular que permita separar la recepción de mensajes, el procesamiento de solicitudes, la gestión de eventos y las integraciones externas.
 
-## 2. Tecnologías propuestas
+La arquitectura se desarrollará progresivamente durante las distintas etapas del proyecto.
 
-| Tecnología | Función |
-|---|---|
-| Python | Lenguaje principal |
-| Flask | Framework web |
-| WhatsApp Cloud API | Comunicación con WhatsApp |
-| Google Calendar API | Integración con calendarios |
-| SQLite | Base de datos inicial |
-| GitHub | Control de versiones |
-| Render | Despliegue del servicio |
+## 2. Tecnologías
 
-Las tecnologías se consideran propuestas iniciales y podrán modificarse durante el desarrollo.
+| Tecnología | Función | Estado |
+|---|---|---|
+| Python | Lenguaje principal | En uso |
+| Flask | Framework web | Implementado |
+| WhatsApp Cloud API | Comunicación con WhatsApp | Integración inicial |
+| Google Calendar API | Gestión de calendarios | Pendiente |
+| SQLite | Base de datos | Prevista |
+| GitHub | Control de versiones | En uso |
+| Ngrok | Exposición del servidor local | Utilizado en pruebas |
+| Render | Despliegue | Previsto |
 
 ## 3. Arquitectura general
 
 ```text
 Usuario
-  |
-  v
-WhatsApp
-  |
-  v
+   |
+ WhatsApp
+   |
 WhatsApp Cloud API
-  |
-  v
-Webhook de Flask
-  |
-  v
-Procesamiento del mensaje
-  |
-  v
-Servicios de Calendi
-  |
-  +----> Google Calendar API
-  |
-  +----> Base de datos
-  |
-  v
-Respuesta del bot
-  |
-  v
-WhatsApp
-  |
-  v
-Usuario
+   |
+ Webhook Flask
+   |
+ Procesamiento del mensaje
+   |
+ Lógica de Calendi
+   |
+ Servicios de calendario
+   |
+ Google Calendar API
+   |
+ Respuesta de Calendi
+   |
+ WhatsApp
+   |
+ Usuario
 ```
 
 ## 4. Componentes
 
 ### 4.1 WhatsApp Cloud API
 
-Se utilizará para recibir mensajes y enviar respuestas a los usuarios.
+Permite la comunicación entre Calendi y WhatsApp.
 
 ### 4.2 Webhook
 
-Será el punto de entrada de los mensajes recibidos.
+Es el punto de entrada de las notificaciones enviadas por Meta.
 
-Se encargará de recibir las solicitudes y derivarlas al sistema de procesamiento.
+Se implementa mediante Flask y permite verificar la conexión y recibir eventos.
 
 ### 4.3 Procesamiento de mensajes
 
-Interpretará el contenido del mensaje y determinará qué acción debe realizarse.
+Analiza los mensajes recibidos y determina qué acción debe realizarse.
 
-Ejemplos:
+Actualmente existe una lógica inicial de identificación de mensajes.
 
-- Crear un evento.
-- Consultar la agenda.
-- Modificar un evento.
-- Eliminar un evento.
+### 4.4 Servicios de calendario
 
-### 4.4 Servicios
-
-Contendrán la lógica necesaria para ejecutar las acciones solicitadas.
+Se desarrollarán para administrar eventos, consultas y recordatorios.
 
 ### 4.5 Google Calendar API
 
-Permitirá administrar eventos en el calendario del usuario.
+Permitirá crear, consultar, modificar y eliminar eventos en el calendario del usuario.
+
+Su integración queda pendiente.
 
 ### 4.6 Base de datos
 
-Almacenará información necesaria para el funcionamiento del sistema, como usuarios, configuraciones y referencias a eventos.
+Se evaluará SQLite para almacenar información de usuarios, configuraciones y referencias a eventos.
 
-## 5. Flujo de procesamiento
+Su implementación queda pendiente.
 
-1. El usuario envía un mensaje por WhatsApp.
-2. WhatsApp Cloud API entrega el mensaje al webhook.
-3. El sistema identifica al usuario.
-4. Se procesa la solicitud.
-5. Se ejecuta la acción correspondiente.
-6. Se obtiene el resultado.
-7. Calendi envía una respuesta al usuario.
+## 5. Estructura modular actual
+
+```text
+src/
+├── __init__.py
+├── main.py
+├── webhook.py
+├── whatsapp.py
+└── bot.py
+```
+
+Responsabilidades:
+
+- `main.py`: inicia el servidor Flask.
+- `webhook.py`: recibe y gestiona eventos de WhatsApp.
+- `whatsapp.py`: contiene las funciones de comunicación con la API.
+- `bot.py`: procesa los mensajes recibidos.
+- `__init__.py`: identifica el paquete de Python.
 
 ## 6. Seguridad
 
-- Las credenciales se almacenarán mediante variables de entorno.
-- No se publicarán tokens ni contraseñas en GitHub.
-- Se validarán las solicitudes recibidas.
-- Se protegerá el acceso a los datos de cada usuario.
-- Se utilizará OAuth 2.0 para la integración con Google Calendar.
+- Utilizar variables de entorno.
+- Mantener las credenciales fuera de GitHub.
+- Validar las solicitudes recibidas.
+- Proteger los datos de los usuarios.
+- Utilizar HTTPS en producción.
+- Utilizar OAuth 2.0 para Google Calendar.
 
-## 7. Consideraciones
+## 7. Evolución
 
-La arquitectura inicial se diseñará para un MVP.
+La arquitectura inicial corresponde al MVP.
 
-A medida que el proyecto crezca, podrán incorporarse nuevas tecnologías y servicios.
+Se ampliará cuando se incorporen la integración con Google Calendar, el almacenamiento de datos, la gestión de usuarios y el sistema de recordatorios.
+

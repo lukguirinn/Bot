@@ -1,26 +1,28 @@
+
 # Investigación de WhatsApp Business Platform
 
 ## Proyecto: Calendi
 
 ## 1. Objetivo
 
-Investigar las alternativas disponibles para conectar Calendi con WhatsApp y determinar qué tecnología utilizaremos para recibir y enviar mensajes.
+Investigar las alternativas disponibles para conectar Calendi con WhatsApp y determinar la tecnología que se utilizará para recibir y enviar mensajes.
 
 ## 2. WhatsApp Business Platform
 
-WhatsApp Business Platform es la plataforma de Meta que permite integrar WhatsApp con sistemas externos mediante APIs.
+Es la plataforma oficial de Meta que permite integrar WhatsApp con sistemas externos mediante APIs.
 
-Se diferencia de WhatsApp Messenger y WhatsApp Business App porque permite que un programa propio gestione las interacciones con los usuarios.
+Permite desarrollar aplicaciones que gestionan interacciones con usuarios mediante WhatsApp.
 
 ## 3. WhatsApp Cloud API
 
 WhatsApp Cloud API es la API alojada por Meta.
 
 Permite:
+
 - Enviar mensajes.
 - Recibir mensajes mediante webhooks.
 - Consultar estados de entrega.
-- Enviar mensajes de texto y otros tipos de contenido admitidos.
+- Enviar plantillas oficiales.
 - Integrar WhatsApp con aplicaciones propias.
 
 Documentación oficial:
@@ -29,120 +31,131 @@ https://developers.facebook.com/docs/whatsapp/cloud-api/
 
 ## 4. Funcionamiento general
 
-El flujo de comunicación será:
+El flujo de comunicación de Calendi será:
 
-1. El usuario envía un mensaje a Calendi.
+1. El usuario envía un mensaje.
 2. WhatsApp Cloud API recibe el mensaje.
-3. Meta envía un evento a nuestro webhook.
-4. FastAPI recibe el evento.
+3. Meta envía una notificación al webhook.
+4. Flask recibe el evento.
 5. Calendi procesa el mensaje.
-6. Calendi genera una respuesta.
-7. Nuestro programa envía la respuesta a través de la API.
+6. Se determina la respuesta.
+7. El programa envía la respuesta mediante WhatsApp Cloud API.
 8. WhatsApp entrega la respuesta al usuario.
 
 ## 5. Webhooks
 
 Un webhook permite que una plataforma envíe información automáticamente a otra aplicación cuando sucede un evento.
 
-En Calendi utilizaremos webhooks para recibir:
-- Mensajes entrantes.
-- Estados de mensajes.
-- Notificaciones de eventos admitidos.
+En Calendi se utilizará para recibir notificaciones de WhatsApp.
 
-El webhook deberá contar con una URL pública HTTPS en el entorno de producción.
+El servidor implementa:
+
+- Endpoint GET para verificar el webhook.
+- Endpoint POST para recibir notificaciones.
+
+En producción se necesitará una URL pública HTTPS.
 
 ## 6. Autenticación
 
-Para comunicarse con WhatsApp Cloud API se requiere un token de acceso.
+Para comunicarse con WhatsApp Cloud API se necesita un token de acceso.
 
-El token permite autenticar las solicitudes que nuestro programa realiza a Meta.
+También se utiliza el identificador del número de teléfono para realizar solicitudes de envío.
 
 Las credenciales deben:
+
 - Guardarse en variables de entorno.
 - Mantenerse fuera del repositorio.
 - No compartirse públicamente.
-- Rotarse o renovarse cuando corresponda.
+- Renovarse cuando corresponda.
 
 ## 7. Alternativas evaluadas
 
 ### WhatsApp Cloud API
 
 Ventajas:
-- Plataforma oficial.
-- Integración directa.
+
+- Integración oficial.
+- Comunicación directa con Meta.
 - Control sobre el desarrollo.
 - Adecuada para construir un producto propio.
 
 Desventajas:
+
 - Requiere configuración de Meta.
-- Requiere implementar el servidor.
-- Debemos administrar credenciales y lógica.
+- Requiere desarrollar el servidor.
+- Se deben administrar credenciales y lógica.
 
 ### Twilio
 
 Ventajas:
-- Proveedor con herramientas propias.
-- Puede simplificar algunos aspectos de integración.
+
+- Proporciona herramientas de integración.
+- Puede simplificar ciertos procesos.
 
 Desventajas:
-- Intermediario adicional.
-- Costos propios del proveedor.
-- Dependencia de sus servicios.
+
+- Incorpora un proveedor intermediario.
+- Tiene condiciones y costos propios.
+- Genera dependencia adicional.
 
 ### Bibliotecas no oficiales
 
-Ventajas:
-- Pueden ser útiles para experimentar.
+Pueden servir para experimentación, pero no serán la base de Calendi debido a sus limitaciones de estabilidad y soporte.
 
-Desventajas:
-- Menor estabilidad.
-- Riesgo de desconexión o bloqueo.
-- No son adecuadas como base recomendada para un producto comercial.
+## 8. Tecnología seleccionada
 
-## 8. Costos
+Se seleccionó WhatsApp Cloud API directamente con Meta.
 
-El costo de utilizar WhatsApp puede depender de las tarifas vigentes de Meta, el país, el tipo de mensaje y las condiciones aplicables.
+Para el servidor se seleccionó Python con Flask.
 
-También deben considerarse:
+Motivos:
+
+- Flask permite desarrollar endpoints HTTP.
+- Es liviano.
+- Se integra con las herramientas de Python.
+- Es adecuado para el desarrollo inicial.
+
+## 9. Costos
+
+Los costos dependerán de las tarifas y condiciones vigentes de Meta, el tipo de mensaje y el país.
+
+También deberán considerarse:
+
 - Hosting.
 - Base de datos.
-- Servicios externos adicionales.
+- Servicios adicionales.
 
-Antes del lanzamiento se deben consultar las tarifas oficiales:
+Documentación oficial:
 
 https://developers.facebook.com/docs/whatsapp/pricing/
 
-No se establece un costo definitivo en esta etapa.
+## 10. Reglas de mensajería
 
-## 9. Reglas de mensajería
-
-WhatsApp establece condiciones para el envío de mensajes.
+Se deberán respetar las políticas de WhatsApp Business Platform.
 
 Entre ellas:
-- El usuario debe haber otorgado el consentimiento correspondiente para recibir comunicaciones.
-- Existen reglas para mensajes iniciados por la empresa.
-- Los mensajes enviados fuera de la ventana de atención al usuario pueden requerir plantillas aprobadas.
-- Deben respetarse las políticas de WhatsApp Business.
+
+- Obtener los permisos y consentimientos correspondientes.
+- Respetar las reglas de mensajería.
+- Utilizar plantillas aprobadas cuando corresponda.
+- Respetar las condiciones de la ventana de atención.
 
 Documentación:
 
 https://developers.facebook.com/docs/whatsapp/
 
-## 10. Conclusión
+## 11. Conclusión
 
-Se recomienda utilizar WhatsApp Cloud API directamente con Meta.
+Se seleccionó WhatsApp Cloud API como plataforma oficial de comunicación.
 
-Esta alternativa permite construir Calendi sobre una integración oficial, con control sobre el código y la arquitectura.
+La integración se desarrolla mediante Python y Flask.
 
-La integración se realizará utilizando Python y Flask.
+El envío de respuestas se realizará utilizando plantillas oficiales de WhatsApp cuando corresponda.
 
-## 11. Estado
+## 12. Estado
 
-Investigación documentada.
+Investigación y selección tecnológica documentadas.
 
-Pendiente:
-- Configuración de cuenta.
-- Configuración del número.
-- Obtención de credenciales.
-- Implementación del webhook.
-- Pruebas de comunicación.
+La integración inicial con Meta se encuentra en desarrollo y validación.
+
+Quedan pendientes las pruebas completas de recepción de mensajes reales y automatización de respuestas.

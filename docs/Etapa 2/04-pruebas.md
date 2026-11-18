@@ -1,125 +1,157 @@
+
 # Pruebas de integración con WhatsApp
 
 ## Proyecto: Calendi
 
 ## 1. Objetivo
 
-Registrar las pruebas realizadas durante la Etapa 2 para verificar que Calendi pueda comunicarse correctamente con WhatsApp.
+Registrar las pruebas realizadas durante el desarrollo de la integración entre Calendi y WhatsApp Cloud API.
 
 ## 2. Alcance
 
-Se probarán:
-- Configuración de Meta.
-- Verificación del webhook.
-- Recepción de mensajes.
-- Procesamiento de mensajes.
-- Envío de respuestas.
-- Manejo de errores.
+Se evaluarán:
 
-## 3. Pruebas planificadas
+- Verificación del webhook.
+- Recepción de eventos.
+- Identificación del remitente.
+- Procesamiento de mensajes.
+- Envío de plantillas.
+- Respuestas automáticas.
+- Flujo completo de comunicación.
+
+## 3. Registro de pruebas
 
 ### Prueba 1 — Verificación del webhook
 
 Objetivo: comprobar que Meta puede verificar el webhook de Calendi.
 
-Resultado esperado:
-- El servidor responde correctamente a la solicitud de verificación.
-- Meta acepta la URL configurada.
+Resultado:
+- Se implementó el endpoint GET.
+- Se realizó la verificación con Meta.
+- El webhook fue aceptado.
+
+Estado: Completada.
+
+### Prueba 2 — Recepción de eventos de prueba
+
+Objetivo: comprobar que Flask recibe notificaciones.
+
+Resultado:
+- Se envió un evento de prueba desde el panel de Meta.
+- Flask recibió la solicitud.
+- El servidor respondió HTTP 200.
+
+Estado: Completada.
+
+Observación:
+
+Esta prueba confirma la recepción de un evento de prueba, pero no demuestra todavía que lleguen mensajes reales de WhatsApp.
+
+### Prueba 3 — Procesamiento de mensajes simulados
+
+Objetivo: comprobar la lógica inicial del bot.
+
+Resultado:
+- Se probó el reconocimiento de "hola".
+- El bot devolvió el resultado "saludo".
+- Se probó un mensaje no reconocido.
+- El bot devolvió el resultado "desconocido".
+
+Estado: Completada para los casos simulados.
+
+### Prueba 4 — Envío manual de plantilla
+
+Objetivo: comprobar la comunicación saliente con WhatsApp Cloud API.
+
+Resultado:
+- Se utilizó la plantilla oficial `hello_world`.
+- La API aceptó la solicitud.
+- Se recibió una respuesta HTTP 200.
+- Se confirmó la entrega del mensaje de prueba.
+
+Estado: Completada.
+
+### Prueba 5 — Recepción de mensajes reales
+
+Objetivo: comprobar que los mensajes enviados desde WhatsApp llegan al webhook.
+
+Resultado:
+
+La recepción de mensajes reales todavía no se encuentra validada.
 
 Estado: Pendiente.
 
-### Prueba 2 — Recepción de mensaje
+### Prueba 6 — Respuesta automática
 
-Objetivo: comprobar que Calendi recibe un mensaje enviado por WhatsApp.
+Objetivo: comprobar que Calendi responde automáticamente al recibir un mensaje real.
 
-Resultado esperado:
-- El webhook recibe el evento.
-- Se identifica el remitente.
-- Se obtiene el contenido del mensaje.
+Resultado:
 
-Estado: Pendiente.
+El código inicial contempla una respuesta mediante plantilla para el resultado "saludo".
 
-### Prueba 3 — Procesamiento del mensaje
-
-Objetivo: comprobar que el servidor procesa el mensaje recibido.
-
-Resultado esperado:
-- El mensaje se interpreta correctamente.
-- Se ejecuta la lógica correspondiente.
-- Se genera una respuesta.
+Sin embargo, el flujo completo todavía no fue validado con un mensaje real recibido desde WhatsApp.
 
 Estado: Pendiente.
 
-### Prueba 4 — Envío de respuesta
+### Prueba 7 — Flujo completo
 
-Objetivo: comprobar que Calendi puede enviar una respuesta a WhatsApp.
-
-Resultado esperado:
-- La API acepta la solicitud.
-- El mensaje se entrega al destinatario de prueba.
-
-Estado: Pendiente.
-
-### Prueba 5 — Flujo completo
-
-Objetivo: verificar la comunicación completa entre el usuario y Calendi.
+Objetivo: validar toda la comunicación entre el usuario y Calendi.
 
 Procedimiento:
-1. Enviar un mensaje desde WhatsApp.
-2. Verificar que Calendi lo recibe.
-3. Verificar que Calendi lo procesa.
-4. Verificar que Calendi envía una respuesta.
-5. Confirmar que la respuesta llega a WhatsApp.
 
-Resultado esperado:
-- El flujo completo funciona correctamente.
+1. El usuario envía un mensaje.
+2. Meta notifica al webhook.
+3. Flask recibe el evento.
+4. Calendi procesa el mensaje.
+5. Se genera la respuesta.
+6. WhatsApp Cloud API envía la plantilla.
+7. El usuario recibe la respuesta.
 
 Estado: Pendiente.
 
-## 4. Registro de resultados
+## 4. Resumen de pruebas
 
-| Prueba | Resultado | Observaciones |
-|---|---|---|
-| Verificación webhook | Pendiente | |
-| Recepción de mensaje | Pendiente | |
-| Procesamiento | Pendiente | |
-| Envío de respuesta | Pendiente | |
-| Flujo completo | Pendiente | |
+| Prueba | Estado |
+|---|---|
+| Verificación del webhook | Completada |
+| Recepción de evento simulado | Completada |
+| Procesamiento de mensajes simulados | Completada |
+| Envío manual de plantilla | Completada |
+| Recepción de mensajes reales | Pendiente |
+| Respuesta automática real | Pendiente |
+| Flujo completo | Pendiente |
 
 ## 5. Registro de errores
 
-Durante las pruebas se documentarán:
+Durante las pruebas se deberán documentar:
+
 - Fecha.
-- Función probada.
+- Funcionalidad probada.
 - Error detectado.
 - Causa identificada.
 - Solución aplicada.
 - Resultado de la nueva prueba.
 
-## 6. Criterio de aprobación
+## 6. Criterios de aprobación
 
-Una prueba se considera aprobada cuando cumple el resultado esperado y no presenta errores que impidan continuar con la integración.
+Una prueba se considera aprobada cuando cumple el resultado esperado y no presenta errores que impidan continuar.
 
-## 7. Criterio de finalización de la etapa
+## 7. Criterios de finalización de la Etapa 2
 
-La Etapa 2 se considera finalizada cuando:
-- El webhook está verificado.
-- Calendi recibe mensajes.
-- Calendi procesa mensajes.
-- Calendi envía respuestas.
-- El flujo completo funciona.
-- Los resultados están documentados.
+La etapa se considerará completada cuando:
 
-## 8. Estado
+- El webhook esté verificado.
+- Calendi reciba mensajes reales.
+- Identifique al remitente.
+- Procese los mensajes.
+- Envíe respuestas mediante plantillas oficiales cuando corresponda.
+- El flujo completo esté probado.
+- Los resultados estén documentados.
 
-Pruebas realizadas parcialmente.
+## 8. Estado general
 
-- Verificación del webhook con Meta: completada.
-- Recepción de evento de prueba enviado desde el panel de Meta: completada.
-- Respuesta HTTP 200 del servidor Flask: comprobada.
-- Recepción de mensajes reales desde WhatsApp: pendiente de validación.
-- Procesamiento de mensajes: pendiente.
-- Envío automático de respuestas desde el webhook: pendiente.
-- Flujo completo: pendiente.
+La integración inicial con WhatsApp Cloud API está implementada parcialmente.
 
-Las pruebas de recepción de mensajes reales y el flujo completo quedan pendientes de continuar durante el desarrollo de Calendi.
+Se completaron las pruebas de verificación, recepción de eventos simulados, procesamiento inicial y envío manual de plantillas.
+
+Continúan pendientes las pruebas con mensajes reales y la validación del flujo automático completo.

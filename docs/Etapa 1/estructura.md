@@ -3,98 +3,118 @@
 
 ## 1. Objetivo
 
-Definir la organización inicial de archivos y carpetas de Calendi.
+Documentar la organización actual de archivos y carpetas de Calendi.
 
-## 2. Estructura propuesta
+## 2. Estructura del proyecto
 
 ```text
-calendi/
+Bot/
 │
-├── app/
-│   ├── routes/
-│   ├── services/
-│   ├── models/
-│   └── utils/
-│
-├── docs/
-│   ├── alcance.md
-│   ├── arquitectura.md
-│   ├── entorno.md
-│   └── estructura.md
-│
-├── tests/
-│
-├── .env.example
+├── .venv/                  # Entorno virtual local
+├── .env                    # Variables privadas locales
 ├── .gitignore
+├── README.md
 ├── requirements.txt
-├── main.py
-└── README.md
+├── verificar.py
+│
+├── main.py                 # Archivo histórico
+├── webhook.py              # Archivo histórico
+│
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── webhook.py
+│   ├── whatsapp.py
+│   └── bot.py
+│
+└── docs/
+    ├── Etapa 1/
+    │   ├── alcance.md
+    │   ├── arquitectura.md
+    │   ├── entorno.md
+    │   └── estructura.md
+    │
+    └── Etapa 2/
+        ├── README.md
+        ├── 01-investigacion-Wpp.md
+        ├── 02-decisiones-tecnicas.md
+        ├── 03-configuracion-meta.md
+        └── 04-pruebas.md
 ```
+
+La carpeta `.venv/` y el archivo `.env` son locales y no deben subirse al repositorio.
 
 ## 3. Descripción de carpetas
 
-### app/
+### src/
 
-Contendrá el código principal del sistema.
+Contiene el código principal de Calendi.
 
-### app/routes/
+### src/main.py
 
-Contendrá las rutas y endpoints del sistema, incluyendo el webhook.
+Punto de entrada del servidor Flask.
 
-### app/services/
+### src/webhook.py
 
-Contendrá la lógica de negocio y los servicios de integración.
+Gestiona la verificación y recepción de eventos de WhatsApp.
 
-### app/models/
+### src/whatsapp.py
 
-Contendrá los modelos de datos.
+Contiene las funciones de comunicación con WhatsApp Cloud API.
 
-### app/utils/
+### src/bot.py
 
-Contendrá funciones auxiliares.
+Contiene la lógica inicial de procesamiento de mensajes.
 
 ### docs/
 
-Contendrá la documentación del proyecto.
+Contiene la documentación técnica y funcional del proyecto.
 
-### tests/
+### .venv/
 
-Contendrá las pruebas del sistema.
+Contiene el entorno virtual de Python.
 
-## 4. Archivos principales
+### .env
 
-### main.py
+Contiene las credenciales y variables privadas.
 
-Será el punto de entrada de la aplicación.
+### verificar.py
+
+Permite ejecutar comprobaciones técnicas de las credenciales de WhatsApp.
+
+## 4. Archivos históricos
+
+Se mantienen temporalmente en la raíz:
+
+- `main.py`
+- `webhook.py`
+
+Estos archivos corresponden a pruebas y versiones anteriores.
+
+No deben utilizarse como punto de entrada del sistema modular.
+
+Se conservarán hasta validar completamente la estructura de `src/`.
+
+## 5. Archivos de configuración
 
 ### requirements.txt
 
-Contendrá las dependencias necesarias.
-
-### .env.example
-
-Contendrá una plantilla de las variables de entorno requeridas, sin credenciales reales.
+Contiene las dependencias necesarias para ejecutar el proyecto.
 
 ### .gitignore
 
-Evitará que archivos innecesarios o sensibles se publiquen en GitHub.
+Evita publicar archivos privados y temporales.
 
 ### README.md
 
-Contendrá la descripción general y las instrucciones iniciales del proyecto.
+Presenta el proyecto y enlaza la documentación.
 
-## 5. Organización del código
+## 6. Evolución de la estructura
 
-Se utilizará una arquitectura modular.
+La estructura podrá ampliarse cuando se incorporen:
 
-Cada componente tendrá una responsabilidad específica para facilitar:
-
-- El mantenimiento.
-- Las pruebas.
-- La incorporación de funcionalidades.
-- La reutilización de código.
-- La escalabilidad.
-
-## 6. Evolución
-
-La estructura podrá ampliarse cuando se incorporen nuevas funcionalidades.
+- Servicios de calendario.
+- Integración con Google Calendar.
+- Base de datos.
+- Sistema de usuarios.
+- Pruebas automatizadas.

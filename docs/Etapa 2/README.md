@@ -1,40 +1,44 @@
-# Etapa 2 — Bot de WhatsApp
+
+# Etapa 2 — Desarrollo del bot de WhatsApp
 
 ## Proyecto: Calendi
 
 ## 1. Objetivo
 
-Desarrollar la conexión entre Calendi y WhatsApp para que el bot pueda recibir mensajes, procesarlos y responder automáticamente.
+Desarrollar la conexión entre Calendi y WhatsApp mediante la plataforma oficial WhatsApp Cloud API de Meta.
 
-En esta etapa se implementará la comunicación básica entre WhatsApp y nuestro programa en Python.
+El objetivo es que el bot pueda recibir mensajes, procesarlos y responder mediante plantillas oficiales de WhatsApp.
 
 ## 2. Resultado esperado
 
-Al finalizar la etapa, Calendi deberá poder:
+Al finalizar esta etapa, Calendi deberá poder:
 
 - Recibir mensajes de WhatsApp.
-- Procesar mensajes entrantes.
-- Identificar al usuario que envió el mensaje.
-- Generar una respuesta.
-- Enviar la respuesta por WhatsApp.
+- Identificar al usuario que envía el mensaje.
+- Obtener el contenido del mensaje.
+- Procesar los mensajes mediante la lógica del bot.
+- Generar respuestas.
+- Enviar respuestas mediante WhatsApp Cloud API.
 - Mantener una conexión funcional con la API oficial de Meta.
 
 ## 3. Decisiones técnicas
 
-| Componente | Tecnología elegida |
+| Componente | Tecnología |
 |---|---|
-| Plataforma de mensajería | WhatsApp Cloud API |
+| Plataforma de mensajería | WhatsApp Business Platform |
+| API | WhatsApp Cloud API |
 | Proveedor | Meta |
 | Lenguaje | Python |
 | Framework | Flask |
 | Base de datos inicial | SQLite (prevista) |
-| Hosting previsto | Render (previsto) |
+| Hosting | Render (previsto) |
 | Entorno de desarrollo | Local |
 | Túnel de desarrollo | Ngrok |
 | Control de versiones | Git y GitHub |
+
 ## 4. Arquitectura
 
-El funcionamiento será el siguiente:
+El funcionamiento general será:
 
 Usuario
   ↓
@@ -48,131 +52,158 @@ Servidor Flask
   ↓
 Lógica del bot
   ↓
-Generación de respuesta
-  ↓
 WhatsApp Cloud API
   ↓
 Usuario
 
 ## 5. Tareas de la etapa
 
-### Tarea #15 — Investigar WhatsApp Business Platform
+### Tarea #15 — Investigación de WhatsApp Business Platform
 
-Objetivo: investigar la plataforma oficial de Meta y definir cómo conectaremos Calendi.
+Objetivo: investigar las alternativas disponibles y seleccionar la tecnología de integración.
 
 Actividades:
 - Investigar WhatsApp Cloud API.
-- Identificar los recursos necesarios.
-- Comprender los webhooks.
+- Comprender el funcionamiento de los webhooks.
 - Revisar los requisitos de autenticación.
-- Investigar los costos y limitaciones.
+- Analizar las alternativas disponibles.
+- Documentar las decisiones técnicas.
 
-Resultado: investigación y decisiones técnicas documentadas.
+Estado: Completada.
 
-### Tarea #16 — Configurar cuenta y número
+### Tarea #16 — Configuración de Meta
 
-Objetivo: crear y configurar los recursos de Meta necesarios para Calendi.
+Objetivo: configurar los recursos necesarios para conectar Calendi con WhatsApp.
 
 Actividades:
-- Crear o configurar la cuenta de Meta Developers.
-- Crear la aplicación de Meta.
+- Configurar Meta for Developers.
+- Crear la aplicación.
 - Agregar WhatsApp como producto.
 - Configurar el número de prueba.
-- Obtener las credenciales necesarias.
+- Obtener las credenciales.
 - Guardar las credenciales de manera segura.
 
-Resultado: cuenta y número preparados para las pruebas.
+Estado: Configuración inicial realizada.
 
-### Tarea #17 — Configurar webhook
+### Tarea #17 — Implementación del webhook
 
-Objetivo: crear el endpoint que recibirá las notificaciones de WhatsApp.
-
-Actividades:
-- Implementar el servidor web utilizando Flask.
-- Implementar el endpoint de verificación.
-- Implementar el endpoint de recepción.
-- Configurar la URL del webhook en Meta.
-- Validar la conexión.
-
-Resultado: webhook configurado y verificado.
-
-### Tarea #18 — Recibir mensajes entrantes
-
-Objetivo: permitir que Calendi reciba mensajes enviados por los usuarios.
+Objetivo: desarrollar el servidor que recibirá las notificaciones de WhatsApp.
 
 Actividades:
-- Interpretar los eventos recibidos.
-- Identificar el remitente.
+- Implementar el servidor Flask.
+- Crear el endpoint GET de verificación.
+- Crear el endpoint POST de recepción.
+- Configurar el webhook en Meta.
+- Verificar la conexión.
+
+Estado: Implementado y verificado.
+
+### Tarea #18 — Recepción y procesamiento de mensajes
+
+Objetivo: permitir que Calendi interprete los eventos recibidos.
+
+Actividades:
+- Recibir eventos mediante el webhook.
+- Identificar al remitente.
 - Obtener el contenido del mensaje.
-- Procesar el mensaje recibido.
-- Controlar errores y eventos duplicados.
+- Ejecutar la lógica inicial del bot.
+- Controlar eventos sin mensajes procesables.
 
-Resultado: Calendi recibe y procesa mensajes correctamente.
+Estado: Procesamiento de eventos de prueba realizado. Recepción de mensajes reales pendiente de validación.
 
-### Tarea #19 — Enviar respuestas de prueba
+### Tarea #19 — Envío de respuestas de prueba
 
-Objetivo: implementar el envío de mensajes desde Calendi hacia WhatsApp.
+Objetivo: implementar el envío de respuestas desde Calendi hacia WhatsApp.
 
 Actividades:
-- Implementar la comunicación con la API.
-- Enviar una respuesta de prueba.
-- Validar la respuesta de la API.
-- Probar el flujo completo.
+- Implementar la comunicación con WhatsApp Cloud API.
+- Enviar plantillas oficiales.
+- Validar las respuestas de la API.
+- Comprobar la entrega del mensaje.
 - Documentar los resultados.
 
-Resultado: Calendi recibe un mensaje y responde correctamente.
+Estado: Envío manual de plantilla de prueba realizado. Automatización del flujo completo pendiente.
 
-## 6. Estructura inicial del código
+## 6. Estructura actual del código
 
 ```text
-src/
-├── main.py
-├── config.py
-├── webhook.py
-├── whatsapp.py
-└── bot.py
+Bot/
+├── .env
+├── .venv/
+├── verificar.py
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── webhook.py
+│   ├── whatsapp.py
+│   └── bot.py
+├── docs/
+│   ├── Etapa 1/
+│   └── Etapa 2/
+├── requirements.txt
+├── .gitignore
+└── README.md
 ```
 
-### Responsabilidades
+Los archivos `.env` y `.venv/` son locales y no deben subirse a GitHub.
 
-- main.py: iniciar el servidor FastAPI.
-- config.py: administrar la configuración.
-- webhook.py: recibir los eventos de WhatsApp.
-- whatsapp.py: comunicarse con WhatsApp Cloud API.
-- bot.py: procesar mensajes y generar respuestas.
+## 7. Responsabilidades de los archivos
 
-## 7. Seguridad
+### src/main.py
+Punto de entrada de la aplicación. Inicia el servidor Flask.
+
+### src/webhook.py
+Gestiona la verificación del webhook y la recepción de eventos de WhatsApp.
+
+### src/whatsapp.py
+Contiene las funciones para comunicarse con WhatsApp Cloud API y enviar plantillas oficiales.
+
+### src/bot.py
+Contiene la lógica inicial para procesar los mensajes recibidos.
+
+### verificar.py
+Permite realizar comprobaciones técnicas del token, los permisos y el número de WhatsApp.
+
+## 8. Seguridad
 
 - No publicar tokens en GitHub.
-- Utilizar variables de entorno.
+- Guardar las credenciales en variables de entorno.
+- Mantener `.env` fuera del repositorio.
+- Utilizar `.gitignore`.
 - No incluir credenciales en el código fuente.
-- Validar las solicitudes recibidas.
 - Utilizar HTTPS en el entorno público.
-- No guardar información personal innecesaria.
+- Evitar almacenar información personal innecesaria.
 
-## 8. Pruebas
+## 9. Pruebas realizadas
 
-Se realizarán las siguientes pruebas:
+- Verificación del webhook con Meta.
+- Recepción de eventos de prueba.
+- Respuesta HTTP 200 del servidor Flask.
+- Procesamiento de mensajes de prueba.
+- Envío manual de la plantilla oficial hello_world.
+- Confirmación de entrega de la plantilla de prueba.
 
-1. Verificar el webhook.
-2. Recibir un mensaje.
-3. Identificar el remitente.
-4. Procesar el contenido.
-5. Enviar una respuesta.
-6. Verificar que la respuesta llegue correctamente.
-7. Comprobar el manejo de errores.
+## 10. Pruebas pendientes
 
-## 9. Criterios de finalización
+- Recepción de mensajes reales desde WhatsApp.
+- Procesamiento de mensajes reales.
+- Automatización de respuestas desde el webhook.
+- Validación del flujo completo.
+- Manejo de errores y eventos duplicados.
 
-La etapa se considera completada cuando:
+## 11. Criterios de finalización
 
-- La cuenta de Meta está configurada.
-- El webhook está verificado.
-- Calendi recibe mensajes.
-- Calendi procesa los mensajes.
-- Calendi envía respuestas.
-- Las pruebas están documentadas.
+La Etapa 2 se considerará completada cuando:
 
-## 10. Próxima etapa
+- El webhook funcione correctamente.
+- Calendi reciba mensajes reales.
+- Identifique y procese los mensajes.
+- Genere respuestas adecuadas.
+- Envíe respuestas mediante plantillas oficiales cuando corresponda.
+- El flujo completo esté probado y documentado.
 
-Una vez completada la conexión básica, se podrá avanzar hacia la integración de las funciones de calendario, creación de eventos, consulta de agenda y recordatorios.
+## 12. Próxima etapa
+
+Una vez validada la conexión básica con WhatsApp, avanzaremos hacia la integración con Google Calendar.
+
+El objetivo será permitir que Calendi pueda gestionar eventos, consultar agendas y administrar recordatorios.

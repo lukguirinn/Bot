@@ -1,13 +1,47 @@
-# Variables y credenciales
-.env
 
-# Entornos virtuales
+# ==========================================
+# CREDENCIALES Y VARIABLES DE ENTORNO
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# ENTORNOS VIRTUALES
+# ==========================================
 .venv/
 venv/
+env/
 
-# Archivos temporales de Python
+# ==========================================
+# PYTHON
+# ==========================================
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.pyo
 
-# Pruebas
+# ==========================================
+# BASES DE DATOS
+# ==========================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ==========================================
+# ARCHIVOS DE PRUEBA Y TEMPORALES
+# ==========================================
 .pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.log
+*.tmp
+
+# ==========================================
+# CONFIGURACIONES LOCALES
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

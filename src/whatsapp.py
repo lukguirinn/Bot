@@ -5,29 +5,26 @@ Contiene las funciones para comunicarse con la API de WhatsApp.
 
 import os
 import requests
-from dotenv import load_dotenv
-
-load_dotenv(override=True)
 
 TOKEN = os.getenv("WHATSAPP_TOKEN")
 PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_NUMBER_ID")
 
 
-def enviar_plantilla(destinatario, plantilla, idioma="en_US"):
+def enviar_plantilla(destinatario: str, plantilla: str, idioma: str = "en_US") -> dict:
     """
     Envía una plantilla aprobada de WhatsApp.
 
     Parámetros:
         destinatario (str): Número del destinatario.
         plantilla (str): Nombre de la plantilla aprobada.
-        idioma (str): Código de idioma de la plantilla.
+        idioma (str): Idioma de la plantilla.
 
     Retorno:
         dict: Resultado de la solicitud a la API.
     """
 
     if not TOKEN or not PHONE_NUMBER_ID:
-        return {"error": "Falta configurar las credenciales de WhatsApp"}
+        return {"error": "Faltan las credenciales de WhatsApp"}
 
     url = f"https://graph.facebook.com/v23.0/{PHONE_NUMBER_ID}/messages"
 
@@ -68,5 +65,3 @@ def enviar_plantilla(destinatario, plantilla, idioma="en_US"):
 
     except requests.RequestException as error:
         return {"error": str(error)}
-
-

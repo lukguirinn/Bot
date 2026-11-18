@@ -3,7 +3,7 @@ Contiene la lógica principal de procesamiento de mensajes de Calendi.
 """
 
 
-def procesar_mensaje(mensaje, remitente):
+def procesar_mensaje(mensaje: str, remitente: str) -> str:
     """
     Procesa el mensaje recibido por WhatsApp.
 
@@ -25,4 +25,3 @@ def procesar_mensaje(mensaje, remitente):
 
     else:
         return "desconocido"
-    

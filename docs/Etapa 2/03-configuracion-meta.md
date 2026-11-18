@@ -1,111 +1,114 @@
+
+
 # Configuración de Meta y WhatsApp
 
 ## Proyecto: Calendi
 
 ## 1. Objetivo
 
-Configurar los recursos necesarios en Meta para conectar Calendi con WhatsApp Cloud API.
+Documentar la configuración realizada en Meta para conectar Calendi con WhatsApp Cloud API.
 
-## 2. Requisitos
+## 2. Plataforma utilizada
 
-Antes de comenzar:
-- Tener acceso a una cuenta de Meta.
-- Tener acceso a Meta for Developers.
-- Crear una aplicación.
-- Agregar WhatsApp como producto.
-- Disponer de un número de prueba o un número habilitado para la plataforma.
-- Configurar las credenciales.
+Se utilizó Meta for Developers para crear y configurar la aplicación de Calendi.
 
-## 3. Crear la aplicación
-
-Ingresar a:
-
+Plataforma:
 https://developers.facebook.com/
 
-Pasos:
-1. Iniciar sesión.
-2. Ingresar a la sección de aplicaciones.
-3. Crear una nueva aplicación.
-4. Seleccionar el tipo de aplicación disponible para la integración.
-5. Agregar el producto WhatsApp.
-6. Ingresar al panel de configuración de WhatsApp.
+Tecnología seleccionada:
+- WhatsApp Business Platform.
+- WhatsApp Cloud API.
+- Webhooks de Meta.
 
-## 4. Configurar WhatsApp
+## 3. Recursos configurados
 
-Dentro del panel de WhatsApp se deberán identificar los recursos disponibles:
+Durante la configuración se realizaron las siguientes tareas:
 
-- WhatsApp Business Account ID.
-- Phone Number ID.
-- Número de teléfono.
-- Token de acceso.
+- Creación de la aplicación en Meta.
+- Incorporación del producto WhatsApp.
+- Configuración del número de prueba.
+- Obtención del token de acceso.
+- Identificación del Phone Number ID.
+- Configuración de las credenciales locales.
+- Configuración del webhook.
+- Verificación de la conexión con Meta.
 
-Estos datos se utilizarán para conectar el programa con la API.
+## 4. Variables de entorno
 
-## 5. Número de prueba
-
-Para el desarrollo inicial se recomienda utilizar el número de prueba proporcionado por Meta.
-
-El número de prueba permitirá validar la integración sin comenzar directamente con el número definitivo de Calendi.
-
-Se deberán seguir las instrucciones del panel para agregar el destinatario de prueba autorizado.
-
-## 6. Credenciales
-
-Las credenciales necesarias se almacenarán mediante variables de entorno.
-
-Ejemplo de nombres:
+El proyecto utiliza las siguientes variables:
 
 ```env
 WHATSAPP_TOKEN=
 WHATSAPP_PHONE_NUMBER_ID=
-WHATSAPP_BUSINESS_ACCOUNT_ID=
-WHATSAPP_VERIFY_TOKEN=
+WEBHOOK_VERIFY_TOKEN=
 ```
 
-Los valores reales no deben incluirse en este documento.
+Los valores reales se almacenan exclusivamente en el archivo `.env`.
 
-## 7. Configuración del webhook
+El archivo `.env`:
+- Se mantiene fuera del repositorio.
+- Está incluido en `.gitignore`.
+- No debe compartirse ni publicarse.
 
-Cuando el servidor esté disponible, se configurará el webhook.
+## 5. Configuración del webhook
 
-Se deberá definir:
-- URL pública del servidor.
-- Token de verificación.
-- Eventos o campos de WhatsApp que se recibirán.
+Se implementó un servidor Flask con los siguientes endpoints:
 
-Meta realizará una solicitud de verificación para confirmar que el servidor controla la URL configurada.
+### GET /webhook
 
-## 8. Seguridad
+Permite verificar la conexión del webhook con Meta.
 
-- No compartir tokens.
-- No publicar credenciales.
-- No incluir secretos en capturas de pantalla.
-- No subir el archivo `.env`.
-- Revocar o renovar credenciales si quedan expuestas.
+### POST /webhook
 
-## 9. Registro de configuración
+Permite recibir notificaciones y eventos enviados por WhatsApp.
 
-Completar durante la tarea #16:
+La configuración se realizó utilizando una URL pública de desarrollo mediante Ngrok.
+
+## 6. Seguridad
+
+Se adoptaron las siguientes medidas:
+
+- No incluir tokens en el código fuente.
+- Guardar credenciales mediante variables de entorno.
+- Excluir `.env` del repositorio.
+- No compartir credenciales en capturas o documentación.
+- Mantener las credenciales fuera de GitHub.
+
+## 7. Registro de configuración
 
 | Elemento | Estado |
 |---|---|
-| Aplicación de Meta creada | Pendiente |
-| WhatsApp agregado | Pendiente |
-| Número de prueba configurado | Pendiente |
-| Token obtenido | Pendiente |
-| Phone Number ID identificado | Pendiente |
-| Credenciales almacenadas de forma segura | Pendiente |
+| Aplicación de Meta creada | Completado |
+| WhatsApp agregado | Completado |
+| Número de prueba configurado | Completado |
+| Token obtenido | Completado |
+| Phone Number ID identificado | Completado |
+| Credenciales locales configuradas | Completado |
+| Archivo `.env` excluido de GitHub | Completado |
+| Webhook configurado | Completado |
+| Verificación del webhook | Completado |
 
-## 10. Resultado esperado
+## 8. Pruebas pendientes
 
-Al finalizar:
-- La aplicación de Meta estará configurada.
-- WhatsApp estará habilitado.
-- Se dispondrá de los recursos necesarios para conectar el servidor.
-- Las credenciales estarán guardadas de forma segura.
+Aunque la configuración inicial está realizada, quedan pendientes:
 
-## 11. Estado
+- Validar la recepción de mensajes reales.
+- Comprobar el procesamiento de mensajes reales.
+- Validar la respuesta automática mediante plantillas oficiales.
+- Probar el flujo completo de comunicación.
 
-Documento preparado.
+Estas pruebas se registran en `04-pruebas.md`.
 
-La configuración real se completará durante la tarea #16.
+## 9. Resultado
+
+La configuración inicial de Meta y WhatsApp Cloud API se encuentra realizada.
+
+Calendi dispone de una aplicación configurada, credenciales locales y un webhook verificado.
+
+La validación completa de la comunicación con mensajes reales continúa pendiente.
+
+## 10. Estado
+
+Configuración inicial completada.
+
+Pruebas de comunicación real pendientes de validación.

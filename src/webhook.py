@@ -1,3 +1,4 @@
+
 """
 Gestiona las solicitudes entrantes del webhook de WhatsApp.
 """
@@ -11,10 +12,7 @@ from src.whatsapp import enviar_plantilla
 
 app = Flask(__name__)
 
-VERIFY_TOKEN = os.getenv(
-    "WEBHOOK_VERIFY_TOKEN",
-    "calendi_webhook_2026"
-)
+VERIFY_TOKEN = os.getenv("WEBHOOK_VERIFY_TOKEN")
 
 PLANTILLAS = {
     "saludo": "hello_world"
@@ -90,3 +88,5 @@ def recibir_mensaje():
         print(datos)
 
     return "EVENT_RECEIVED", 200
+
+
